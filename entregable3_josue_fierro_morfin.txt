@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+        stages{
+            stage('Verificar Logs'){
+                steps{
+                    echo "Validando existencia de logs"
+                    bat 'cmd /c dir C:\\Users\\Lenovo\\Desktop\\ibm\\msl |  findstr /r secure.log' //windows
+                    //sh 'ls C:\\Users\\Lenovo\\Desktop\\ibm\\msl | grep results.log' // linux/mac
+                    echo "Logs encontrados"
+                }
+            }
+            stage('Verificar Script'){
+                steps{
+                    echo "Validando existencia de script"
+                    bat 'cmd /c dir C:\\Users\\Lenovo\\Desktop\\ibm\\msl | findstr /r "entregable2_josue_fierro_morfin.py"'// windows
+                    //sh 'ls /home/user/Scripts | grep test_main.py'
+                    echo "Script encontrado"
+                }
+            }
+            stage('Analizar Logs'){
+                steps{
+                    echo "Prosediendo a ejecutar el script"
+                    bat 'python C:\\Users\\Lenovo\\Desktop\\ibm\\msl\\entregable2_josue_fierro_morfin.py'
+                    //sh 'python -m pytest -s /home/user/script/test_main.py'
+                    echo "Termino la ejecucion"
+                }
+            }
+            
+        }
+}
